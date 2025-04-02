@@ -55,7 +55,8 @@ body {
 }
 
 .cart-img {
-    max-width: 25%;
+    min-width: 100px;
+
 }
 
 .change-quantity {
