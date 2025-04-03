@@ -84,7 +84,10 @@ document.getElementById("orderForm").addEventListener("submit", function (event)
     }
 });
 
-let product = JSON.parse(sessionStorage.getItem('chosenProduct'));     
-document.getElementById('img').setAttribute('src', product.image);
-document.getElementById('title').innerHTML = product.title;
-document.getElementById('price').innerHTML = '$ ' + product.price;
+let products = JSON.parse(localStorage.getItem('cart'));   
+
+products.forEach(product => {
+    let title = document.createElement('p');
+    title.innerHTML = product.title
+    document.getElementById('ordered-products').appendChild(title);
+})

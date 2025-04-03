@@ -12,7 +12,7 @@
     <h1  class = "text-center mt-5">Varukorg</h1>
     <hr class ="container-sm text-center mx-auto m-5">
 
-    <div class="container-sm text mx-auto" id="cart"></div>
+    <div class="container-sm text-center mx-auto" id="cart"></div>
 
     <div class="container-sm m-4 text-end">
         <p><strong>Totalt pris: $<span id="price"></span></strong></p>
@@ -21,9 +21,8 @@
     <div class="container-sm d-flex mx-auto justify-content-center">
         <a href="index.html" class="btn m-3">Fortsätt shoppa</a>
         <a href="bestallning.html" class="btn m-3">Gå till betalning</a>
+        <a href="#" id="empty-cart" class="btn m-3" onclick="emptyCart()">Töm varukorg</a>
     </div>
-
-    
 
     <script src="/js/cart-script.js"></script>
 </body>

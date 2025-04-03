@@ -1,5 +1,9 @@
 let products = JSON.parse(localStorage.getItem('cart'));
 
+if (products === null) {
+    document.getElementById('cart').innerHTML = 'Din varukorg är tom';
+}
+
 let productQuantities = new Map();
 
 products.forEach(product => {
@@ -18,7 +22,7 @@ function showCartProduct(value, key, map) {
 
     let img = document.createElement('img');
     img.setAttribute('src', product.image);
-    img.className = "cart-img img-fluid col"
+    img.className = "cart-img img-fluid"
 
     let card = document.createElement('div');
     card.className = "d-flex flex-wrap cart-product row mb-4 p-3 mx-auto rounded border shadow-lg justify-content-between";
@@ -30,12 +34,18 @@ function showCartProduct(value, key, map) {
     let title = document.createElement('p');
     title.innerHTML = product.title;
 
-    let price = document.createElement('p');
-    price.innerHTML = "$" + product.price;
+    let quantityContainer = document.createElement('div');
+    
+    quantityContainer.innerHTML = 'Antal: ';
 
-    let quantity = document.createElement('p');
+    let quantity = document.createElement('span');
     quantity.id = "quantity-" + id;
-    quantity.innerHTML = `Antal: ${value}`;
+    quantity.innerHTML = productQuantities.get(id)
+
+    quantityContainer.appendChild(quantity);
+
+    let changeQuantity = document.createElement('div');
+    changeQuantity.className = "mb-3";
 
     let increase = document.createElement('span');
     increase.id = "inc";
@@ -48,17 +58,25 @@ function showCartProduct(value, key, map) {
     decrease.className = "change-quantity btn";
     decrease.innerHTML = "-";
     decrease.addEventListener('click', e => removeFromCart(id));
+
+    changeQuantity.appendChild(increase);
+    changeQuantity.appendChild(decrease);
+    quantityContainer.appendChild(changeQuantity)
     
-    let itemTotal = document.createElement('p');
-    itemTotal.innerHTML = "$" + calculateItemTotal(id);
+    let itemTotalContainer = document.createElement('p');
+    itemTotalContainer.innerHTML = '$'
+    itemTotalContainer.className = "";
+    
+
+    let itemTotal = document.createElement('span');
+    itemTotal.innerHTML = calculateItemTotal(id);
     itemTotal.id = "itemTotal-" + id;
+    itemTotalContainer.appendChild(itemTotal);
+    
 
     productInfo.appendChild(title);
-    productInfo.appendChild(quantity);
-    productInfo.appendChild(increase);
-    productInfo.appendChild(decrease);
-    productInfo.appendChild(price);
-    productInfo.appendChild(itemTotal);
+    productInfo.appendChild(quantityContainer);
+    productInfo.appendChild(itemTotalContainer);
     
     card.appendChild(img);
     card.appendChild(productInfo);
@@ -101,8 +119,13 @@ function removeFromCart(id) {
     localStorage.setItem('cart', JSON.stringify(products));
     
     let quantity = productQuantities.get(id) - 1;
+    console.log(products.length);
+    
     if (quantity === 0) {
         productQuantities.delete(id);
+        if (products.length === 0) {
+            document.getElementById('cart').innerHTML = 'Din varukorg är tom';
+        }
     } else {
         productQuantities.set(id, quantity);
     }
@@ -118,4 +141,12 @@ function updateCard(id, quantity) {
         document.getElementById('quantity-'+id).innerHTML = quantity;
         document.getElementById('itemTotal-'+id).innerHTML = calculateItemTotal(id);
     }
+}
+
+function emptyCart() {
+    products = [];
+    productQuantities = new Map();
+    document.getElementById('cart').innerHTML = 'Din varukorg är tom';
+    localStorage.removeItem('cart');
+    document.getElementById('price').innerHTML = calculateCartTotal();
 }

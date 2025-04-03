@@ -40,8 +40,17 @@ body {
 .btn:hover {
     background-color: #719f84;
 }
+
+#empty-cart {
+    background-color: #df8a8a;
+    border: none;
+}
+
+#empty-cart:hover {
+    background-color: #c97070;
+}
   
-.ordered-product, .cart-product {
+#ordered-products, .cart-product {
     background-color: white;
     box-shadow: 2px 1px 5px rgb(196, 195, 195);
 }
@@ -51,12 +60,19 @@ body {
 }
 
 #cart {
-    max-width: 660px;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+.cart-product {
+    max-height: 220px;
+    align-items: center;
 }
 
 .cart-img {
+    max-width: 25%;
+    max-height: fit-content;
     min-width: 100px;
-
 }
 
 .change-quantity {
