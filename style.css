@@ -7,6 +7,12 @@ body {
     color: #4A4A4A;
 }
 
+#listaProdukterna {
+    justify-self: center;
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
 .beskrivning {
     height: 160px;
     word-break: break-word;
@@ -29,7 +35,7 @@ body {
 
 .card {
     color: #4A4A4A;
-    max-width: 350px;
+    max-width: 300px;
 }
 
 .btn {
@@ -57,6 +63,11 @@ body {
 
 #cart-symbol {
     align-self: center;
+    position: fixed;
+}
+
+#cart-svg {
+    max-height: 40px;
 }
 
 #cart {
@@ -84,3 +95,4 @@ body {
     height: 2rem;
     text-justify: center;
 }
+

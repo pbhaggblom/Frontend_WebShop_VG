@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     .then(visaProdukter);
 });
 
+document.getElementById('cart-quantity').innerHTML = JSON.parse(localStorage.getItem('cart')).length;
+
 function visaProdukter(produkter) {
   let indexDiven = document.getElementById("listaProdukterna");
 
@@ -60,8 +62,6 @@ function visaProdukter(produkter) {
     beställKnapp.className = "btn";
 
     beställKnapp.addEventListener("click", (e) => {
-      //location.href = "bestallning.html";
-      //sessionStorage.setItem("chosenProduct", JSON.stringify(produkten));
       addProduct(produkten);
     });
 
@@ -111,6 +111,7 @@ function addProduct(product) {
   if (localStorage.getItem('cart')) {
     cart = JSON.parse(localStorage.getItem('cart'))
   }
-  cart.push(product);  
+  cart.push(product);
+  document.getElementById('cart-quantity').innerHTML = cart.length;  
   localStorage.setItem('cart', JSON.stringify(cart));
 }

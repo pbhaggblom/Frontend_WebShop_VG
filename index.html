@@ -8,14 +8,22 @@
 </head>
 <body id="body">
     
-    <div class="d-flex mt-5 mx-4" id="top">
+    <div class="d-flex  mt-5 mx-4 " id="top">
         <h1  class = "container text-center">Shop!</h1>
-        <span id="cart-symbol"><a href="shoppingcart.html">Cart</a></span>
-    </div>
-        
-    <hr class ="container-sm text-center mx-auto m-5">
+        <span id="cart-symbol">
+            <p class="d-inline" id="cart-quantity"></p>
+            <a href="shoppingcart.html">
+                <img src="cart.svg" id="cart-svg">
+            </a>
+        </span>
 
-    <div id="listaProdukterna" class="container d-flex flex-wrap mx-auto"></div>
+    </div>
+
+    <hr class ="container-sm text-center mx-auto m-5">
+        
+
+
+    <div id="listaProdukterna" class="container d-flex flex-wrap justify-content-center"></div>
 
     <script src="js/api-script.js"></script>
 </body>
