@@ -17,8 +17,8 @@ document.getElementById('price').innerHTML = total;
 
 function showCartProduct(value, key, map) {
 
-    let product = products.find((p) => p.id === key)
-    let id = product.id
+    let product = products.find((p) => p.id === key);
+    let id = product.id;
 
     let img = document.createElement('img');
     img.setAttribute('src', product.image);
@@ -67,13 +67,11 @@ function showCartProduct(value, key, map) {
     itemTotalContainer.innerHTML = '$'
     itemTotalContainer.className = "";
     
-
     let itemTotal = document.createElement('span');
     itemTotal.innerHTML = calculateItemTotal(id);
     itemTotal.id = "itemTotal-" + id;
     itemTotalContainer.appendChild(itemTotal);
     
-
     productInfo.appendChild(title);
     productInfo.appendChild(quantityContainer);
     productInfo.appendChild(itemTotalContainer);
@@ -89,7 +87,8 @@ function showCartProduct(value, key, map) {
 function calculateItemTotal(id) {
     let quantity = productQuantities.get(id);
     let price = products.find(p => p.id === id).price;
-    return quantity * price;
+    let itemTotal = Number((price * quantity).toFixed(2));
+    return itemTotal;
 }
 
 function calculateCartTotal() {
@@ -97,6 +96,9 @@ function calculateCartTotal() {
     productQuantities.forEach((value, key, map) => {
         total += calculateItemTotal(key);
     })
+    total = total.toFixed(2);
+    console.log(total)
+    localStorage.setItem('total', total);
     return total;
 }
 
@@ -149,4 +151,9 @@ function emptyCart() {
     document.getElementById('cart').innerHTML = 'Din varukorg är tom';
     localStorage.removeItem('cart');
     document.getElementById('price').innerHTML = calculateCartTotal();
+}
+
+function storeQuantities() {
+    let obj = Object.fromEntries(productQuantities)
+    localStorage.setItem('quantities', JSON.stringify(obj));
 }

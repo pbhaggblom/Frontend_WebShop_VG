@@ -84,10 +84,22 @@ document.getElementById("orderForm").addEventListener("submit", function (event)
     }
 });
 
-let products = JSON.parse(localStorage.getItem('cart'));   
+let products = JSON.parse(localStorage.getItem('cart'));
+let productQuantities = JSON.parse(localStorage.getItem('quantities'));
+let quantities = new Map(Object.entries(productQuantities));
 
-products.forEach(product => {
-    let title = document.createElement('p');
-    title.innerHTML = product.title
-    document.getElementById('ordered-products').appendChild(title);
-})
+quantities.forEach(showQuantity);
+
+function showQuantity(value, key, map) {
+
+    let product = products.find((p) => p.id === Number(key))
+
+    let title = document.createElement('li');
+    title.innerHTML = value + ' x ' + product.title;
+
+    document.getElementById('product-list').appendChild(title);
+}
+
+document.getElementById('order-total').innerHTML = localStorage.getItem('total');
+
+
