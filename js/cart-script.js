@@ -40,7 +40,7 @@ function showCartProduct(value, key, map) {
 
     let quantity = document.createElement('span');
     quantity.id = "quantity-" + id;
-    quantity.innerHTML = productQuantities.get(id)
+    quantity.innerHTML = value;
 
     quantityContainer.appendChild(quantity);
 
@@ -57,7 +57,7 @@ function showCartProduct(value, key, map) {
     decrease.id = "dec";
     decrease.className = "change-quantity btn";
     decrease.innerHTML = "-";
-    decrease.addEventListener('click', e => removeFromCart(id));
+    decrease.addEventListener('click', e => removeItem(id));
 
     changeQuantity.appendChild(increase);
     changeQuantity.appendChild(decrease);
@@ -97,7 +97,6 @@ function calculateCartTotal() {
         total += calculateItemTotal(key);
     })
     total = total.toFixed(2);
-    console.log(total)
     localStorage.setItem('total', total);
     return total;
 }
@@ -114,14 +113,13 @@ function addItem(id) {
     updateCard(id, quantity);
 }
 
-function removeFromCart(id) {
+function removeItem(id) {
 
     let product = products.find(p => p.id === id);
     products.splice(products.indexOf(product), 1);
     localStorage.setItem('cart', JSON.stringify(products));
     
     let quantity = productQuantities.get(id) - 1;
-    console.log(products.length);
     
     if (quantity === 0) {
         productQuantities.delete(id);
