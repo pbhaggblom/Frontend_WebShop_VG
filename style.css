@@ -96,3 +96,15 @@ body {
     text-justify: center;
 }
 
+#remove {
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0px 5px 2px 5px;
+    text-justify: center;
+    background-color: #df8a8a;
+}
+
+#remove:hover {
+    background-color: #c97070;
+}
+

@@ -59,8 +59,15 @@ function showCartProduct(value, key, map) {
     decrease.innerHTML = "-";
     decrease.addEventListener('click', e => removeItem(id));
 
+    let remove = document.createElement('span');
+    remove.id = "remove";
+    remove.className = "btn";
+    remove.innerHTML = "x";
+    remove.addEventListener('click', e => removeAllItems(id));
+
     changeQuantity.appendChild(increase);
     changeQuantity.appendChild(decrease);
+    changeQuantity.appendChild(remove);
     quantityContainer.appendChild(changeQuantity)
     
     let itemTotalContainer = document.createElement('p');
@@ -123,24 +130,36 @@ function removeItem(id) {
     
     if (quantity === 0) {
         productQuantities.delete(id);
+        document.getElementById('card-' + id).remove();
         if (products.length === 0) {
             document.getElementById('cart').innerHTML = 'Din varukorg är tom';
         }
     } else {
         productQuantities.set(id, quantity);
+        updateCard(id, quantity);
     }
-    
-    updateCard(id, quantity);
+    document.getElementById('price').innerHTML = calculateCartTotal();
+}
+
+function removeAllItems(id) {
+    document.getElementById('card-' + id).remove();
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id === id) {
+            products.splice(i, 1);
+            i -= 1;
+        }
+    }
+    if (products.length === 0) {
+        document.getElementById('cart').innerHTML = 'Din varukorg är tom';
+    }
+    productQuantities.delete(id);
+    localStorage.setItem('cart', JSON.stringify(products));  
+    document.getElementById('price').innerHTML = calculateCartTotal();
 }
 
 function updateCard(id, quantity) {
-    document.getElementById('price').innerHTML = calculateCartTotal();
-    if (quantity === 0) {
-        document.getElementById('card-' + id).remove();
-    } else {
-        document.getElementById('quantity-'+id).innerHTML = quantity;
-        document.getElementById('itemTotal-'+id).innerHTML = calculateItemTotal(id);
-    }
+    document.getElementById('quantity-'+id).innerHTML = quantity;
+    document.getElementById('itemTotal-'+id).innerHTML = calculateItemTotal(id);
 }
 
 function emptyCart() {
